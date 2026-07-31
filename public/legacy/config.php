@@ -406,7 +406,7 @@ $sugar_config = array (
   ),
   'showDetailData' => true,
   'showThemePicker' => true,
-  'site_url' => 'http://localhost/crm/SuiteCRM-8.10.1/public',
+  'site_url' => 'http://localhost:8000',
   'slow_query_time_msec' => '100',
   'snooze_alert_timer' => 600,
   'stackTrace' => false,
