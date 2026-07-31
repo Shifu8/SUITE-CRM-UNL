@@ -1,0 +1,11 @@
+# SuiteCRM 8 gitignore
+/cache/
+/logs/
+/tmp/
+/upload/
+/public/legacy/cache/
+/public/legacy/upload/
+/public/legacy/custom/history/
+/public/legacy/custom/modulebuilder/
+.DS_Store
+Thumbs.db
