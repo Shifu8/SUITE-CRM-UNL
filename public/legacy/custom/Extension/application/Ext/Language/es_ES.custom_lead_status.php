@@ -16,7 +16,7 @@ $app_list_strings['score_interes_list'] = array (
 );
 
 $app_list_strings['canal_procedencia_list'] = array (
-  'Página Web Posgrados' => 'Página Web Posgrados',
+  'Pagina Web Posgrados' => 'Pagina Web Posgrados',
   'Redes Sociales' => 'Redes Sociales',
   'Feria de Eventos' => 'Feria de Eventos',
 );

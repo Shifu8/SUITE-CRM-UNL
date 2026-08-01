@@ -23,3 +23,12 @@ $app_list_strings['canal_captacion_list']=array (
 $app_list_strings['programa_interes_0']=array (
   'maestriabigdata' => 'Maestria en Big  Data y Ciencia de Datos',
 );
+$app_list_strings['lead_status_dom']=array (
+  '' => '',
+  'Registrado' => 'Registrado',
+  'Contactado' => 'Contactado',
+  'No_Interesado' => 'No_Interesado',
+  'Interesado' => 'Interesado',
+  'En_seguimiento' => 'En_seguimiento',
+  'Inscrito' => 'Inscrito',
+);

@@ -7,8 +7,15 @@ $hook_array = Array();
 $hook_array['before_save'] = Array();
 $hook_array['before_save'][] = Array(
     1,
-    'Verificar Cédula e Historial de Aspirante',
+    'Verificar Cedula e Historial de Aspirante',
     'custom/modules/Leads/CheckCedulaHook.php',
     'CheckCedulaHook',
     'checkCedulaAndHistory'
+);
+$hook_array['before_save'][] = Array(
+    2,
+    'Automation Workflow Lead Assignment',
+    'custom/modules/Leads/AutomationWorkflowHook.php',
+    'AutomationWorkflowHook',
+    'processLeadWorkflow'
 );
