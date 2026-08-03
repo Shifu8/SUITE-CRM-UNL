@@ -1,0 +1,90 @@
+# ============================================================
+#  SuiteCRM UNL – Docker Compose
+#  Servicios: suitecrm (PHP/Apache) + mysql (MySQL 8.0)
+#  Compatible con Windows 11 + Docker Desktop
+# ============================================================
+
+version: "3.8"
+
+services:
+
+  # ----------------------------------------------------------
+  # MySQL 8.0
+  # ----------------------------------------------------------
+  mysql:
+    image: mysql:8.0
+    container_name: suitecrm_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: suitecrm8
+      MYSQL_USER: suitecrm
+      MYSQL_PASSWORD: suitecrm_pass
+    ports:
+      - "3307:3306"          # Mapeado en 3307 para evitar conflicto con MySQL local
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./docker/init:/docker-entrypoint-initdb.d   # Scripts de inicialización SQL
+    command: >
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_unicode_ci
+      --sql-mode=STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+      --max_allowed_packet=256M
+      --innodb-buffer-pool-size=256M
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  # ----------------------------------------------------------
+  # SuiteCRM (PHP 8.1 + Apache)
+  # ----------------------------------------------------------
+  suitecrm:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: suitecrm_app
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+    ports:
+      - "8080:80"            # Acceder en http://localhost:8080
+    environment:
+      # Base de datos – apunta al servicio mysql dentro de la red Docker
+      DATABASE_URL: "mysql://root:root@mysql:3306/suitecrm8"
+      # SuiteCRM legacy config (para config.php)
+      SUITECRM_DB_HOST: mysql
+      SUITECRM_DB_PORT: 3306
+      SUITECRM_DB_NAME: suitecrm8
+      SUITECRM_DB_USER: root
+      SUITECRM_DB_PASS: root
+      # App
+      APP_ENV: prod
+      APP_SECRET: c4938983c54dba448dc0f37bcdae02a8
+      CORS_ALLOW_ORIGIN: "^https?://(localhost|127\\.0\\.0\\.1)(:[0-9]+)?$"
+    volumes:
+      - suitecrm_upload:/var/www/html/public/legacy/upload
+      - suitecrm_cache:/var/www/html/public/legacy/cache
+      - suitecrm_logs:/var/www/html/logs
+    networks:
+      - suitecrm_net
+
+# ----------------------------------------------------------
+# Redes y Volúmenes
+# ----------------------------------------------------------
+volumes:
+  mysql_data:
+    driver: local
+  suitecrm_upload:
+    driver: local
+  suitecrm_cache:
+    driver: local
+  suitecrm_logs:
+    driver: local
+
+networks:
+  suitecrm_net:
+    driver: bridge

@@ -1,0 +1,67 @@
+# ============================================================
+#  SuiteCRM UNL – .dockerignore
+#  Excluye archivos innecesarios del contexto de build Docker
+#  para acelerar el proceso y reducir el tamaño de imagen
+# ============================================================
+
+# Control de versiones
+.git
+.gitignore
+
+# Node modules (muy pesado, no necesario en producción)
+node_modules
+.yarn
+.yarnrc.yml
+yarn.lock
+package-lock.json
+
+# Cache local
+public/legacy/cache/*
+!public/legacy/cache/.htaccess
+cache/*
+
+# Archivos de desarrollo
+.editorconfig
+.eslintrc.js
+.php-cs-fixer.dist.php
+tsconfig.json
+tslint.json
+codeception.yml
+
+# Logs locales
+logs/*
+!logs/.htaccess
+
+# Archivos temporales
+tmp/*
+!tmp/.htaccess
+
+# Archivos de entorno local (se pasan como variables en docker-compose)
+.env.local
+.env.development
+.env.staging
+.env.test
+
+# Scripts de desarrollo/debug (no necesarios en producción)
+scratch/
+
+# IDE y SO
+.vscode
+.idea
+*.swp
+*.swo
+Thumbs.db
+.DS_Store
+
+# Archivos de composer ya incluidos (vendor se copia tal cual)
+# composer.lock se mantiene para reproducibilidad
+
+# Docker files propios (no se necesitan dentro del contenedor)
+Dockerfile
+docker-compose.yml
+docker-compose.*.yml
+.dockerignore
+
+# README
+README.md
+LICENSE.txt
