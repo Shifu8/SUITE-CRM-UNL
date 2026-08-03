@@ -1,5 +1,5 @@
-<?php
-// WARNING: The contents of this file are auto-generated
+<?php 
+ //WARNING: The contents of this file are auto-generated
 
 
 /**
@@ -16,3 +16,4 @@ $mod_strings['LBL_PROGRAMA_INTERES'] = 'Programa de Interés';
 $mod_strings['LBL_CANAL_CAPTACION'] = 'Canal de Captación';
 $mod_strings['LBL_SCORE_ASPIRANTE'] = 'Score del Aspirante ';
 
+?>

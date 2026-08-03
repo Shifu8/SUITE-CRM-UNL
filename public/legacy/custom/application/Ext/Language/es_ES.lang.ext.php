@@ -1,5 +1,5 @@
-<?php
-// WARNING: The contents of this file are auto-generated
+<?php 
+ //WARNING: The contents of this file are auto-generated
 
 
 $app_list_strings['lead_status_dom'] = array (
@@ -40,3 +40,4 @@ $app_list_strings['lead_status_dom']['Inscrito y/o Matriculado'] = 'Inscrito y/o
 $app_list_strings['calendar_source_types']['caldav_basic'] = 'CalDAV';
 $app_list_strings['calendar_source_types']['google'] = 'Google Calendar';
 
+?>
