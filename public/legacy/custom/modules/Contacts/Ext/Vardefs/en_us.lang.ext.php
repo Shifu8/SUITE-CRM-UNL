@@ -53,6 +53,38 @@ $dictionary['Contact']['fields']['score_aspirante_c']['labelValue']='Score del A
 
  ?>
 
+// From: cedula_c.php
+$dictionary['Contact']['fields']['cedula_c'] = array(
+    'name'                     => 'cedula_c',
+    'vname'                    => 'LBL_CEDULA',
+    'type'                     => 'varchar',
+    'len'                      => 20,
+    'audited'                  => false,
+    'required'                 => false,
+    'merge_filter'             => 'disabled',
+    'duplicate_on_record_copy' => 'always',
+    'unified_search'           => true,
+    'calculated'               => false,
+    'custom_module'            => 'Contacts',
+);
+
+
+// From: ciclo_convocatoria_c.php
+$dictionary['Contact']['fields']['ciclo_convocatoria_c'] = array(
+    'name'                     => 'ciclo_convocatoria_c',
+    'vname'                    => 'LBL_CICLO_CONVOCATORIA',
+    'type'                     => 'varchar',
+    'len'                      => 100,
+    'audited'                  => false,
+    'required'                 => false,
+    'merge_filter'             => 'disabled',
+    'duplicate_on_record_copy' => 'always',
+    'unified_search'           => false,
+    'calculated'               => false,
+    'custom_module'            => 'Contacts',
+);
+
+
 // From: estado_aspirante_c.php
 /**
  * Vardef: estado_aspirante_c en Contacts
