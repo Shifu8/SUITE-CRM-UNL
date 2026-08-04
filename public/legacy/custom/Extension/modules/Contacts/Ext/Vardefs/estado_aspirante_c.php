@@ -2,8 +2,8 @@
 /**
  * Vardef: estado_aspirante_c en Contacts
  * 
- * Estado del aspirante dentro del proceso de posgrado.
- * Visible en la lista de contactos del Director de Maestría.
+ * Estado del proceso de admisión de Posgrados UNL.
+ * Inicializado automáticamente en "Nuevo" al convertir un Lead en Contacto.
  */
 $dictionary['Contact']['fields']['estado_aspirante_c'] = array(
     'name'                     => 'estado_aspirante_c',
@@ -18,5 +18,5 @@ $dictionary['Contact']['fields']['estado_aspirante_c'] = array(
     'unified_search'           => true,
     'calculated'               => false,
     'custom_module'            => 'Contacts',
-    'default'                  => 'Interesado',
+    'default'                  => 'Nuevo',
 );

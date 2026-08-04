@@ -464,7 +464,7 @@ class ACLAction extends SugarBean
     public static function hasAccess($is_owner = false, $in_group = false, $access = 0, ?ACLAction $action = null)
     {
         /**
-         * if($access != 0 && $access == ACL_ALLOW_ALL || ($is_owner && $access == ACL_ALLOW_OWNER))return true;
+         * if($access != 0 && ($access == ACL_ALLOW_ALL || $access == ACL_ALLOW_ENABLED) || ($is_owner && $access == ACL_ALLOW_OWNER))return true;
          * //if this exists, then this function is not static, so check the aclaccess parameter
          * if(isset($this) && isset($this->aclaccess)){
          * if($this->aclaccess == ACL_ALLOW_ALL || ($is_owner && $this->aclaccess == ACL_ALLOW_OWNER))
@@ -472,7 +472,7 @@ class ACLAction extends SugarBean
          * }
          */
         if ($access != 0 && (
-                $access == ACL_ALLOW_ALL
+                ($access == ACL_ALLOW_ALL || $access == ACL_ALLOW_ENABLED)
                 || ($is_owner && ($access == ACL_ALLOW_OWNER || $access == ACL_ALLOW_GROUP))  //if owner that's better than in group so count it...better way to clean this up?
                 || ($in_group && $access == ACL_ALLOW_GROUP) //need to pass if in group with access somehow
             )) {

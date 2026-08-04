@@ -183,7 +183,7 @@ class ModuleRegistryHandler extends LegacyHandler implements ModuleRegistryInter
 
         $actions = ACLAction::getUserActions($current_user->id);
         foreach ($actions as $key => $value) {
-            if (!isset($value['module'])) {
+            if (!isset($value['module']['access']['aclaccess'])) {
                 continue;
             }
 

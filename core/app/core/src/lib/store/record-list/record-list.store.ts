@@ -415,7 +415,19 @@ export class RecordListStore implements StateStore, DataSource<Record>, Selectio
      * @returns {object} Observable<ListViewState>
      */
     public load(useCache = true): Observable<RecordList> {
-
+        if (!this.internalState?.module) {
+            return of({
+                records: [],
+                criteria: deepClone(initialSearchCriteria),
+                sort: deepClone(initialListSort),
+                pagination: deepClone(initialListPagination),
+                openFilter: deepClone(this.baseFilter),
+                activeFilters: deepClone(this.baseFilterMap),
+                selection: deepClone(initialSelection),
+                meta: {}
+            });
+        }
+        if (!this.internalState?.module) { return of({ records: [], criteria: deepClone(initialSearchCriteria), sort: deepClone(initialListSort), pagination: deepClone(initialListPagination), openFilter: deepClone(this.baseFilter), activeFilters: deepClone(this.baseFilterMap), selection: deepClone(initialSelection), meta: {} }); }
         this.updateState({
             ...this.internalState,
             loading: true

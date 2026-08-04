@@ -115,7 +115,7 @@ class ACLController
         // Employees has no acl_actions records — grant access unconditionally,
         // matching legacy (Suite 7) behavior where Employees bypasses ACL entirely.
         // Controller-level guards still enforce edit-own-only and delete-admin-only.
-        if ($category === 'Employees') {
+        if ($category === 'Employees' || strtolower($category) === 'home') {
             return true;
         }
 

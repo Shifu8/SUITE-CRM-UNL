@@ -212,12 +212,14 @@ export class BaseNavbarComponent implements OnInit, OnDestroy, AfterViewInit {
         window.dispatchEvent(new Event('resize'));
 
         this.notificationCount$ = this.notificationStore.notificationsUnreadTotal$;
+        this.notificationStore.enableNotifications();
+        this.notificationStore.refreshNotifications();
 
         this.recentlyViewedCount = this.systemConfigStore.getUi('global_recently_viewed');
 
         this.subs.push(this.notificationStore.notificationsEnabled$.subscribe(notificationsEnabled => {
 
-            if (!Object.keys(this?.navigation?.modules ?? []).includes('Notifications') && !Object.keys(this?.navigation?.modules ?? []).includes('alerts')){
+            if (!Object.keys(this?.navigation?.modules ?? []).map(k=>k.toLowerCase()).includes('notifications') && !Object.keys(this?.navigation?.modules ?? []).map(k=>k.toLowerCase()).includes('alerts')){
                 notificationsEnabled = false;
             }
 

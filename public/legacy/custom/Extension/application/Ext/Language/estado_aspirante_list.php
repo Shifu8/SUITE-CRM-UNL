@@ -2,17 +2,20 @@
 /**
  * Dropdown list: estado_aspirante_list
  * 
- * Estado del aspirante en el proceso de posgrado.
- * Lo usa el Director de Maestría para ver el progreso de cada contacto.
+ * Lista de estados del proceso de admisiones de posgrados UNL.
+ * Usada en el módulo de Contactos por el Director de Maestría.
  */
 $app_list_strings['estado_aspirante_list'] = array(
-    ''                          => '',
-    'Interesado'                => 'Interesado',
-    'Documentacion_Pendiente'   => 'Documentación Pendiente',
-    'Documentacion_Completa'    => 'Documentación Completa',
-    'En_Revision'               => 'En Revisión',
-    'Aceptado'                  => 'Aceptado',
-    'Matriculado'               => 'Matriculado',
-    'No_Continua'               => 'No Continúa',
-    'Descartado'                => 'Descartado',
+    ''                        => '',
+    'Nuevo'                  => 'Nuevo',
+    'Registrado'             => 'Registrado',
+    'Contactado'             => 'Contactado',
+    'En seguimiento'         => 'En seguimiento',
+    'Documentación pendiente' => 'Documentación pendiente',
+    'Documentacion pendiente' => 'Documentación pendiente',
+    'Postulación completa'    => 'Postulación completa',
+    'Postulacion completa'    => 'Postulación completa',
+    'Admitido'               => 'Admitido',
+    'Matriculado'            => 'Matriculado',
+    'Descartado'             => 'Descartado',
 );

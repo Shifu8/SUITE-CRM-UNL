@@ -141,12 +141,10 @@ export class AuthService {
                 return;
             }
 
-            setTimeout(() => {
-                this.notificationStore.enableNotifications();
-                this.notificationStore.refreshNotifications();
-                this.draftsStore.initStore();
-                this.draftsService.init()
-            }, 2000);
+            this.notificationStore.enableNotifications();
+            this.notificationStore.refreshNotifications();
+            this.draftsStore.initStore();
+            this.draftsService.init();
 
         }, (error: HttpErrorResponse) => {
             onError(error);

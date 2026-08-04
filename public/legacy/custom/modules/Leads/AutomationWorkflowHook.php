@@ -3,14 +3,19 @@ if (!defined('sugarEntry') || !sugarEntry) die('Not A Valid Entry Point');
 
 class AutomationWorkflowHook
 {
+    /**
+     * Hook before_save en Leads
+     * 1. Auto-asociar Lead nuevo a la campaña activa (Agosto 2026) si no tiene campaña.
+     * 2. No utilizar usuarios quemados.
+     */
     public function processLeadWorkflow(&$bean, $event, $arguments)
     {
-        // Auto-assign high score leads to Director de Maestria if score >= 50 and status is Interesado
-        if (isset($bean->score_interes_c) && intval($bean->score_interes_c) >= 50 && $bean->status === 'Interesado') {
-            // Find Director de Maestria (gsuing)
-            $res = $bean->db->query("SELECT id FROM users WHERE user_name='gsuing' AND deleted=0");
+        // Auto-asociar campaña activa si campaign_id está vacío
+        if (empty($bean->campaign_id)) {
+            $res = $bean->db->query("SELECT id, name FROM campaigns WHERE status='Active' AND deleted=0 ORDER BY date_entered DESC LIMIT 1");
             if ($row = $bean->db->fetchByAssoc($res)) {
-                $bean->assigned_user_id = $row['id'];
+                $bean->campaign_id = $row['id'];
+                $bean->campaign_name = $row['name'];
             }
         }
     }
