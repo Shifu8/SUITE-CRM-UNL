@@ -45,6 +45,13 @@ require_once('modules/OutboundEmailAccounts/OutboundEmailAccounts_sugar.php');
 #[\AllowDynamicProperties]
 class OutboundEmailAccounts extends OutboundEmailAccounts_sugar
 {
+    public $disable_row_level_security = true;
+
+    public function bean_implements($interface)
+    {
+        return false;
+    }
+
 
     /**
      * @var string

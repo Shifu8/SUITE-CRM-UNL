@@ -105,15 +105,14 @@ class OutboundEmailDataHandler extends BaseListDataHandler implements ListDataHa
 
     protected function getWhere(?\SugarBean $currentUser, string $where): string
     {
-        if (!is_admin($currentUser)){
-            return $where;
-        }
-
         $table = \BeanFactory::newBean('OutboundEmailAccounts')->getTableName();
 
-        $showGroupRecords = "($table.type IS NULL) OR ($table.type != 'user' ) OR ";
-
-        $query = "($showGroupRecords ($table.type = 'user' AND user_id = '".$currentUser?->db->quote($currentUser?->id)."'))";
+        if (is_admin($currentUser)) {
+            $query = "($table.deleted = 0)";
+        } else {
+            $showGroupRecords = "($table.type IS NULL) OR ($table.type != 'user') OR ";
+            $query = "($showGroupRecords ($table.type = 'user' AND $table.user_id = '".$currentUser?->db->quote($currentUser?->id)."'))";
+        }
 
         if (empty($where)) {
             return $query;
@@ -129,7 +128,9 @@ class OutboundEmailDataHandler extends BaseListDataHandler implements ListDataHa
         foreach ($records as $key => $record) {
             $attributes = $record->getAttributes();
 
-            if (!empty($attributes['from_addr'])) {
+            $fromAddr = $attributes['from_addr'] ?? ($attributes['smtp_from_addr'] ?? ($attributes['mail_smtpuser'] ?? ''));
+
+            if (!empty($fromAddr)) {
                 continue;
             }
 
@@ -137,4 +138,5 @@ class OutboundEmailDataHandler extends BaseListDataHandler implements ListDataHa
             $resultData['pageData']['offsets']['total']--;
         }
     }
+
 }
