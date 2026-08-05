@@ -118,30 +118,41 @@ class ContactLastTouchPoint extends SubpanelDataQueryHandler implements Statisti
         $queries = $this->getQueries($module, $id, $subpanel);
 
 
-        $parts = $queries[2];
-        $parts['select'] = 'SELECT meetings.`date_end` AS `meetings_date_end`';
-        $parts['order_by'] = ' ORDER BY `meetings_date_end` DESC LIMIT 1';
-        $innerQuery = $this->joinQueryParts($parts);
-        $meetingsResult = $this->fetchRow($innerQuery);
+        $meetingsResult = [];
+        if (isset($queries[2])) {
+            $parts = $queries[2];
+            $parts['select'] = 'SELECT meetings.`date_end` AS `meetings_date_end`';
+            $parts['order_by'] = ' ORDER BY `meetings_date_end` DESC LIMIT 1';
+            $innerQuery = $this->joinQueryParts($parts);
+            $meetingsResult = $this->fetchRow($innerQuery);
+        }
 
-        $parts = $queries[3];
-        $parts['select'] = 'SELECT calls.`date_end` ';
-        $parts['order_by'] = ' ORDER BY calls.`date_end` DESC LIMIT 1';
-        $innerQuery = $this->joinQueryParts($parts);
-        $callsResult = $this->fetchRow($innerQuery);
+        $callsResult = [];
+        if (isset($queries[3])) {
+            $parts = $queries[3];
+            $parts['select'] = 'SELECT calls.`date_end` ';
+            $parts['order_by'] = ' ORDER BY calls.`date_end` DESC LIMIT 1';
+            $innerQuery = $this->joinQueryParts($parts);
+            $callsResult = $this->fetchRow($innerQuery);
+        }
 
+        $emailsResult1 = [];
+        if (isset($queries[5])) {
+            $parts = $queries[5];
+            $parts['select'] = 'SELECT  emails.`date_sent_received` ';
+            $parts['order_by'] = ' ORDER BY  emails.`date_sent_received` DESC LIMIT 1';
+            $innerQuery = $this->joinQueryParts($parts);
+            $emailsResult1 = $this->fetchRow($innerQuery);
+        }
 
-        $parts = $queries[5];
-        $parts['select'] = 'SELECT  emails.`date_sent_received` ';
-        $parts['order_by'] = ' ORDER BY  emails.`date_sent_received` DESC LIMIT 1';
-        $innerQuery = $this->joinQueryParts($parts);
-        $emailsResult1 = $this->fetchRow($innerQuery);
-
-        $parts = $queries[6];
-        $parts['select'] = 'SELECT  emails.`date_sent_received` as `emails_date_sent` ';
-        $parts['order_by'] = ' ORDER BY  `emails_date_sent` DESC LIMIT 1';
-        $innerQuery = $this->joinQueryParts($parts);
-        $emailsResult2 = $this->fetchRow($innerQuery);
+        $emailsResult2 = [];
+        if (isset($queries[6])) {
+            $parts = $queries[6];
+            $parts['select'] = 'SELECT  emails.`date_sent_received` as `emails_date_sent` ';
+            $parts['order_by'] = ' ORDER BY  `emails_date_sent` DESC LIMIT 1';
+            $innerQuery = $this->joinQueryParts($parts);
+            $emailsResult2 = $this->fetchRow($innerQuery);
+        }
 
         $date = [];
         $positions = [];
