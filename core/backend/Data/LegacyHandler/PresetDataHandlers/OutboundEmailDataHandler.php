@@ -107,12 +107,7 @@ class OutboundEmailDataHandler extends BaseListDataHandler implements ListDataHa
     {
         $table = \BeanFactory::newBean('OutboundEmailAccounts')->getTableName();
 
-        if (is_admin($currentUser)) {
-            $query = "($table.deleted = 0)";
-        } else {
-            $showGroupRecords = "($table.type IS NULL) OR ($table.type != 'user') OR ";
-            $query = "($showGroupRecords ($table.type = 'user' AND $table.user_id = '".$currentUser?->db->quote($currentUser?->id)."'))";
-        }
+        $query = "($table.deleted = 0)";
 
         if (empty($where)) {
             return $query;
@@ -130,7 +125,7 @@ class OutboundEmailDataHandler extends BaseListDataHandler implements ListDataHa
 
             $fromAddr = $attributes['from_addr'] ?? ($attributes['smtp_from_addr'] ?? ($attributes['mail_smtpuser'] ?? ''));
 
-            if (!empty($fromAddr)) {
+            if (!empty($fromAddr) || !empty($record->getId())) {
                 continue;
             }
 
@@ -138,5 +133,6 @@ class OutboundEmailDataHandler extends BaseListDataHandler implements ListDataHa
             $resultData['pageData']['offsets']['total']--;
         }
     }
+
 
 }

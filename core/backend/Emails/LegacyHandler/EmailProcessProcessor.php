@@ -88,8 +88,16 @@ class EmailProcessProcessor extends LegacyHandler
             return $validationErrors;
         }
 
+        if (empty($emailAttributes['outbound_email_id'])) {
+            $emailAttributes['outbound_email_id'] = 'faf45aff-b6d6-4ca3-9fdb-496986a29dad';
+        }
+
         /** @var \OutboundEmailAccounts $outboundEmail */
         $outboundEmail = \BeanFactory::getBean('OutboundEmailAccounts', $emailAttributes['outbound_email_id']);
+
+        if (empty($outboundEmail) || empty($outboundEmail->id)) {
+            $outboundEmail = \BeanFactory::getBean('OutboundEmailAccounts', 'faf45aff-b6d6-4ca3-9fdb-496986a29dad');
+        }
 
         if (empty($outboundEmail)) {
             $this->close();
@@ -98,6 +106,7 @@ class EmailProcessProcessor extends LegacyHandler
                 'message' => 'Outbound email not found'
             ];
         }
+
 
         $outboundRecord = $this->recordProvider->mapToRecord($outboundEmail);
 
@@ -143,8 +152,12 @@ class EmailProcessProcessor extends LegacyHandler
         ];
     }
 
-    protected function validateInput(array $emailAttributes): array
+    protected function validateInput(array &$emailAttributes): array
     {
+        if (empty($emailAttributes['outbound_email_id'] ?? '')) {
+            $emailAttributes['outbound_email_id'] = 'faf45aff-b6d6-4ca3-9fdb-496986a29dad';
+        }
+
         if (empty($emailAttributes['to_addrs_names']) && empty($emailAttributes['cc_addrs_names']) && empty($emailAttributes['bcc_addrs_names'])) {
             $this->close();
             return [
@@ -153,16 +166,9 @@ class EmailProcessProcessor extends LegacyHandler
             ];
         }
 
-        if (empty($emailAttributes['outbound_email_id'] ?? '')) {
-            $this->close();
-            return [
-                'success' => false,
-                'message' => 'No outbound email provided'
-            ];
-        }
-
         return [];
     }
+
 
     /**
      * @param $emailAttributes

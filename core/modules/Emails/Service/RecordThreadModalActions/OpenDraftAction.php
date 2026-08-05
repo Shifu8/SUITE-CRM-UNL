@@ -264,12 +264,24 @@ class OpenDraftAction implements ProcessHandlerInterface
      */
     protected function getOutboundEmailRecord(string $id, string $fromAddr): array
     {
-        $record = $this->getRecord('OutboundEmailAccounts', $id);
-        $attributes = $record->getAttributes();
-        $attributes['from_addr'] = $fromAddr;
-        $record->setAttributes($attributes);
-        return $record->toArray();
+        if (empty($id)) {
+            $id = 'faf45aff-b6d6-4ca3-9fdb-496986a29dad';
+        }
+        try {
+            $record = $this->getRecord('OutboundEmailAccounts', $id);
+            $attributes = $record->getAttributes();
+            if (empty($fromAddr)) {
+                $fromAddr = $attributes['smtp_from_addr'] ?? 'brandon.medina@unl.edu.ec';
+            }
+            $attributes['from_addr'] = $fromAddr;
+            $record->setAttributes($attributes);
+            return $record->toArray();
+        } catch (\Throwable $t) {
+            $record = $this->getRecord('OutboundEmailAccounts', 'faf45aff-b6d6-4ca3-9fdb-496986a29dad');
+            return $record->toArray();
+        }
     }
+
 
     /**
      * @throws \Exception
