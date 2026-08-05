@@ -1,79 +1,45 @@
 <?php
 /**
- * Layout de Conversión de Leads para Admisiones de Posgrado UNL
- * 
- * Flujo: Lead -> Contacto
- * - No requiere Account Name.
- * - Muestra Maestría de interés y Estado del proceso (inicializado en Nuevo).
- * - Conserva toda la información del aspirante.
+ * Convert Lead metadata custom para SuiteCRM Campus UNL
+ * Incluye etiquetas en español y selección de Director / Usuario Asignado
  */
-$viewdefs['Contacts']['ConvertLead'] = array(
-    'copyData' => true,
-    'required' => true,
-    'select' => "report_to_name",
-    'default_action' => 'create',
-    'templateMeta' => array(
-        'form' => array(
-            'hidden' => array(
-                '<input type="hidden" name="opportunity_id" value="{$smarty.request.opportunity_id}">',
-                '<input type="hidden" name="case_id" value="{$smarty.request.case_id}">',
-                '<input type="hidden" name="bug_id" value="{$smarty.request.bug_id}">',
-                '<input type="hidden" name="email_id" value="{$smarty.request.email_id}">',
-                '<input type="hidden" name="inbound_email_id" value="{$smarty.request.inbound_email_id}">'
-            )
-        ),
-        'maxColumns' => '2',
-        'widths' => array(
-            array('label' => '10', 'field' => '30'),
-            array('label' => '10', 'field' => '30'),
-        ),
-    ),
-    'panels' => array(
-        'LNK_NEW_CONTACT' => array(
-            array(
-                array(
-                    'name' => 'first_name',
-                    'customCode' => '{html_options name="Contactssalutation" options=$fields.salutation.options selected=$fields.salutation.value}&nbsp;<input name="Contactsfirst_name" size="25" maxlength="25" type="text" value="{$fields.first_name.value}">',
-                ),
-                'last_name',
-            ),
-            array(
-                'maestria_interesada_c',
-                'estado_aspirante_c',
-            ),
-            array(
-                'department',
-                'phone_mobile',
-            ),
-            array(
-                'email1',
-                'campaign_name',
-            ),
-            array(
-                'cedula_c',
-                'ciclo_convocatoria_c',
-            ),
-            array(
-                'description',
-            ),
-        )
-    ),
-);
+if (!file_exists('modules/Leads/metadata/convertdefs.php')) {
+    return;
+}
 
-// Desactivar módulo Accounts en la conversión
-$viewdefs['Accounts']['ConvertLead'] = array(
-    'copyData' => false,
-    'required' => false,
-    'default_action' => 'none',
-    'templateMeta' => array(
-        'form' => array('hidden' => array()),
-        'maxColumns' => '2',
-        'widths' => array(
-            array('label' => '10', 'field' => '30'),
-            array('label' => '10', 'field' => '30'),
+require 'modules/Leads/metadata/convertdefs.php';
+
+// Configurar panel de Contactos para Convert Lead
+$viewdefs['Contacts']['ConvertLead']['select'] = 'assigned_user_name';
+$viewdefs['Contacts']['ConvertLead']['panels']['LNK_NEW_CONTACT'] = array(
+    array(
+        array(
+            'name' => 'first_name',
+            'customCode' => '{html_options name="Contactssalutation" options=$fields.salutation.options selected=$fields.salutation.value}&nbsp;<input name="Contactsfirst_name" size="25" maxlength="25" type="text" value="{$fields.first_name.value}">',
         ),
+        'last_name',
     ),
-    'panels' => array(
-        'LNK_NEW_ACCOUNT' => array()
+    array(
+        array('name' => 'maestria_interesada_c', 'label' => 'Maestría Interesada'),
+        array('name' => 'estado_aspirante_c', 'label' => 'Estado del Aspirante'),
+    ),
+    array(
+        array('name' => 'department', 'label' => 'Departamento / Maestría'),
+        array('name' => 'phone_mobile', 'label' => 'Teléfono Móvil'),
+    ),
+    array(
+        array('name' => 'email1', 'label' => 'Correo Electrónico'),
+        array('name' => 'assigned_user_name', 'label' => 'Asignado a'),
+    ),
+    array(
+        array('name' => 'campaign_name', 'label' => 'Campaña'),
+        array('name' => 'cedula_c', 'label' => 'Cédula / Identificación'),
+    ),
+    array(
+        array('name' => 'ciclo_convocatoria_c', 'label' => 'Ciclo / Convocatoria'),
+        '',
+    ),
+    array(
+        array('name' => 'description', 'label' => 'Descripción'),
     ),
 );

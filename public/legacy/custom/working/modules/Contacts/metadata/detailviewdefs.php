@@ -1,7 +1,4 @@
 <?php
-/**
- * DetailViewDefs personalizado para Contacts
- */
 $viewdefs ['Contacts'] = 
 array (
   'DetailView' => 
@@ -33,6 +30,20 @@ array (
         ),
       ),
       'useTabs' => false,
+      'tabDefs' => 
+      array (
+        'LBL_CONTACT_INFORMATION' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
+        'LBL_EDITVIEW_PANEL1' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
+      ),
+      'syncDetailEditViews' => true,
     ),
     'panels' => 
     array (
@@ -42,25 +53,40 @@ array (
         array (
           0 => 
           array (
-            'name' => 'full_name',
-            'label' => 'LBL_NAME',
+            'name' => 'first_name',
+            'comment' => 'First name of the contact',
+            'label' => 'LBL_FIRST_NAME',
           ),
           1 => 
           array (
-            'name' => 'estado_aspirante_c',
-            'label' => 'LBL_ESTADO_ASPIRANTE',
+            'name' => 'last_name',
+            'comment' => 'Last name of the contact',
+            'label' => 'LBL_LAST_NAME',
           ),
         ),
         1 => 
         array (
           0 => 
           array (
+            'name' => 'estado_aspirante_c',
+            'label' => 'LBL_ESTADO_ASPIRANTE',
+          ),
+          1 => 
+          array (
             'name' => 'maestria_interesada_c',
             'label' => 'LBL_MAESTRIA_INTERESADA',
           ),
-          1 => 'department',
         ),
         2 => 
+        array (
+          0 => 'department',
+          1 => 
+          array (
+            'name' => 'phone_mobile',
+            'label' => 'LBL_MOBILE_PHONE',
+          ),
+        ),
+        3 => 
         array (
           0 => 
           array (
@@ -69,11 +95,11 @@ array (
           ),
           1 => 
           array (
-            'name' => 'phone_mobile',
-            'label' => 'LBL_MOBILE_PHONE',
+            'name' => 'phone_work',
+            'label' => 'LBL_OFFICE_PHONE',
           ),
         ),
-        3 => 
+        4 => 
         array (
           0 => 
           array (
@@ -86,7 +112,7 @@ array (
             'label' => 'LBL_CICLO_CONVOCATORIA',
           ),
         ),
-        4 => 
+        5 => 
         array (
           0 => 
           array (
@@ -95,7 +121,7 @@ array (
           ),
           1 => 'campaign_name',
         ),
-        5 => 
+        6 => 
         array (
           0 => 
           array (
@@ -109,12 +135,33 @@ array (
           ),
           1 => 
           array (
+            'name' => 'alt_address_street',
+            'label' => 'LBL_ALTERNATE_ADDRESS',
+            'type' => 'address',
+            'displayParams' => 
+            array (
+              'key' => 'alt',
+            ),
+          ),
+        ),
+        7 => 
+        array (
+          0 => 
+          array (
             'name' => 'description',
             'label' => 'LBL_DESCRIPTION',
           ),
+          1 => '',
+        ),
+      ),
+      'lbl_editview_panel1' => 
+      array (
+        0 => 
+        array (
+          0 => '',
+          1 => '',
         ),
       ),
     ),
   ),
 );
-?>

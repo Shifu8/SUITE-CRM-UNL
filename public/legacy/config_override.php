@@ -5,3 +5,5 @@ $sugar_config['disabled_languages'] = '';
 /***CONFIGURATOR***/
 
 $sugar_config['default_max_tabs'] = 12;
+
+$sugar_config['app_name'] = 'UnlCRM';

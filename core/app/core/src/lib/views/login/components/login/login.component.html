@@ -1,29 +1,29 @@
-<! --
+<!--
 /**
-* SuiteCRM is a customer relationship management program developed by SuiteCRM Ltd.
-* Copyright (C) 2021 SuiteCRM Ltd.
-*
-* This program is free software; you can redistribute it and/or modify it under
-* the terms of the GNU Affero General Public License version 3 as published by the
-* Free Software Foundation with the addition of the following permission added
-* to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
-* IN WHICH THE COPYRIGHT IS OWNED BY SUITECRM, SUITECRM DISCLAIMS THE
-* WARRANTY OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
-*
-* This program is distributed in the hope that it will be useful, but WITHOUT
-* ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
-* FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
-* details.
-*
-* You should have received a copy of the GNU Affero General Public License
-* along with this program.  If not, see http://www.gnu.org/licenses.
-*
-* In accordance with Section 7(b) of the GNU Affero General Public License
-* version 3, these Appropriate Legal Notices must retain the display of the
-* "Supercharged by SuiteCRM" logo. If the display of the logos is not reasonably
-* feasible for technical reasons, the Appropriate Legal Notices must display
-* the words "Supercharged by SuiteCRM".
-*/
+ * SuiteCRM is a customer relationship management program developed by SuiteCRM Ltd.
+ * Copyright (C) 2021 SuiteCRM Ltd.
+ *
+ * This program is free software; you can redistribute it and/or modify it under
+ * the terms of the GNU Affero General Public License version 3 as published by the
+ * Free Software Foundation with the addition of the following permission added
+ * to Section 15 as permitted in Section 7(a): FOR ANY PART OF THE COVERED WORK
+ * IN WHICH THE COPYRIGHT IS OWNED BY SUITECRM, SUITECRM DISCLAIMS THE
+ * WARRANTY OF NON INFRINGEMENT OF THIRD PARTY RIGHTS.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ * FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more
+ * details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see http://www.gnu.org/licenses.
+ *
+ * In accordance with Section 7(b) of the GNU Affero General Public License
+ * version 3, these Appropriate Legal Notices must retain the display of the
+ * "Supercharged by SuiteCRM" logo. If the display of the logos is not reasonably
+ * feasible for technical reasons, the Appropriate Legal Notices must display
+ * the words "Supercharged by SuiteCRM".
+ */
 -->
 <div *ngIf="(vm$ | async) as vm" class="login-view full-height-view d-flex align-items-center">
 
@@ -63,6 +63,7 @@
                  [@fade]>
 
                 <div class="inner-addon left-addon">
+                    <svg class="custom-login-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     <scrm-image image="login_user"></scrm-image>
                     <input [(ngModel)]="uname"
                            type="text"
@@ -79,6 +80,7 @@
                 </div>
 
                 <div class="inner-addon left-addon">
+                    <svg class="custom-login-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                     <scrm-image image="login_password"></scrm-image>
                     <input [(ngModel)]="passw"
                            type="password"
@@ -113,6 +115,7 @@
                  *ngIf="cardState() === 'back'"
                  [@fade]>
                 <div class="inner-addon left-addon">
+                    <svg class="custom-login-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                     <scrm-image image="login_user"></scrm-image>
                     <input [(ngModel)]="uname"
                            type="text"
@@ -129,6 +132,7 @@
                 </div>
 
                 <div class="inner-addon left-addon">
+                    <svg class="custom-login-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
                     <scrm-image image="email"></scrm-image>
                     <input [(ngModel)]="email"
                            type="email"

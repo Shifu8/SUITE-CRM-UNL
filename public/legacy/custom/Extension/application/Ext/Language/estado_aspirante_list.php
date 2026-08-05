@@ -2,20 +2,17 @@
 /**
  * Dropdown list: estado_aspirante_list
  * 
- * Lista de estados del proceso de admisiones de posgrados UNL.
- * Usada en el módulo de Contactos por el Director de Maestría.
+ * Lista oficial de estados del proceso de admisión para Contactos (Aspirantes):
+ * Nuevo, Contactado, En seguimiento, Inscrito, Admitido, Matriculado
  */
 $app_list_strings['estado_aspirante_list'] = array(
-    ''                        => '',
-    'Nuevo'                  => 'Nuevo',
-    'Registrado'             => 'Registrado',
-    'Contactado'             => 'Contactado',
-    'En seguimiento'         => 'En seguimiento',
-    'Documentación pendiente' => 'Documentación pendiente',
-    'Documentacion pendiente' => 'Documentación pendiente',
-    'Postulación completa'    => 'Postulación completa',
-    'Postulacion completa'    => 'Postulación completa',
-    'Admitido'               => 'Admitido',
-    'Matriculado'            => 'Matriculado',
-    'Descartado'             => 'Descartado',
+    ''              => '',
+    'Nuevo'          => 'Nuevo',
+    'Contactado'     => 'Contactado',
+    'En seguimiento' => 'En seguimiento',
+    'Inscrito'       => 'Inscrito',
+    'Admitido'       => 'Admitido',
+    'Matriculado'    => 'Matriculado',
+    'In Process'     => 'En seguimiento',
+    'Converted'      => 'Inscrito',
 );

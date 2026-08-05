@@ -1,7 +1,4 @@
 <?php
-/**
- * EditViewDefs personalizado para Contacts
- */
 $viewdefs ['Contacts'] = 
 array (
   'EditView' => 
@@ -35,6 +32,19 @@ array (
       ),
       'useTabs' => false,
       'syncDetailEditViews' => true,
+      'tabDefs' => 
+      array (
+        'LBL_CONTACT_INFORMATION' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
+        'LBL_EDITVIEW_PANEL1' => 
+        array (
+          'newTab' => false,
+          'panelDefault' => 'expanded',
+        ),
+      ),
     ),
     'panels' => 
     array (
@@ -152,7 +162,14 @@ array (
           1 => '',
         ),
       ),
+      'lbl_editview_panel1' => 
+      array (
+        0 => 
+        array (
+          0 => '',
+          1 => '',
+        ),
+      ),
     ),
   ),
 );
-?>
