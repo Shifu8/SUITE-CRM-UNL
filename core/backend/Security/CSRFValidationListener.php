@@ -82,6 +82,14 @@ class CSRFValidationListener
      */
     public function onKernelRequest(RequestEvent $event): void
     {
+        if (
+            HttpKernelInterface::MAIN_REQUEST !== $event->getRequestType() ||
+            $event->getRequest()->isMethodSafe() ||
+            !$this->routeMatcher->match($event->getRequest(), $this->routes)
+        ) {
+            return;
+        }
+
         // Allow unauthenticated/login operations (e.g. Login mutation) to bypass CSRF validation
         $content = $event->getRequest()->getContent();
         if (!empty($content) && (
