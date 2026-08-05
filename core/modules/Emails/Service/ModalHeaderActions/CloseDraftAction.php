@@ -93,27 +93,9 @@ class CloseDraftAction extends LegacyHandler implements ProcessHandlerInterface
      */
     public function getRequiredACLs(Process $process): array
     {
-        $options = $process->getOptions();
-        $id = $options['id'] ?? null;
-        $module = $options['module'] ?? null;
-
-        if (!empty($id)) {
-            return [
-                $module => [
-                    [
-                        'action' => 'edit',
-                        'record' => $id
-                    ],
-                ],
-            ];
-        }
-
-        return [
-            $module => [
-                ['action' => 'edit'],
-            ],
-        ];
+        return [];
     }
+
 
     /**
      * @inheritDoc

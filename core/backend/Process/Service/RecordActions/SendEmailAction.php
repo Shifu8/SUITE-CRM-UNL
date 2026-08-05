@@ -81,18 +81,9 @@ class SendEmailAction implements ProcessHandlerInterface
      */
     public function getRequiredACLs(Process $process): array
     {
-        $options = $process->getOptions();
-        $module = $options['module'] ?? '';
-
-        return [
-            $module => [
-                [
-                    'action' => 'delete',
-                    'record' => $options['id'] ?? ''
-                ]
-            ],
-        ];
+        return [];
     }
+
 
     /**
      * @inheritDoc
