@@ -185,6 +185,15 @@ class InitOutboundEmailDefault implements ProcessHandlerInterface
             $attributes['from_name'] = $attributes['smtp_from_name'] ?? ($attributes['name'] ?? '');
         }
 
+        if (function_exists('getFormattedFromName')) {
+            $formattedName = getFormattedFromName($GLOBALS['current_user'] ?? null, $attributes['from_name'] ?? 'Admisiones Posgrado');
+            $attributes['from_name'] = $formattedName;
+            $smtpFromAddr = $attributes['smtp_from_addr'] ?? ($attributes['mail_smtpuser'] ?? '');
+            if (!empty($smtpFromAddr)) {
+                $attributes['from_addr'] = "$formattedName <$smtpFromAddr>";
+            }
+        }
+
         if ((empty($attributes['from_addr']) || $attributes['from_addr'] === ' ') && empty($attributes['from_name'])) {
             $responseData = [
                 'value' => ''

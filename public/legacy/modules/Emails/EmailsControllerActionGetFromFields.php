@@ -191,7 +191,7 @@ class EmailsControllerActionGetFromFields
             $id = $userOutboundAccount->id ?? '';
             $name = $userOutboundAccount->name ?? '';
             $fromAddress = $userOutboundAccount->getFromAddress();
-            $fromName = $userOutboundAccount->getFromName();
+            $fromName = function_exists('getFormattedFromName') ? getFormattedFromName($this->currentUser, $userOutboundAccount->getFromName()) : $userOutboundAccount->getFromName();
             $replyToAddress = $userOutboundAccount->getReplyToAddress();
             $replyToName = $userOutboundAccount->getReplyToName();
             $type = $userOutboundAccount->type ?? '';

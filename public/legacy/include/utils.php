@@ -6731,3 +6731,49 @@ if (!function_exists('endsWith')) {
         return (@substr_compare($str, $end, -strlen($end))==0);
     }
 }
+
+if (!function_exists('getFormattedFromName')) {
+    function getFormattedFromName($user = null, $defaultFromName = 'Admisiones Posgrado') {
+        if (empty($user) || empty($user->id)) {
+            global $current_user;
+            $user = $current_user;
+        }
+        
+        if (empty($user) || empty($user->id)) {
+            return $defaultFromName;
+        }
+
+        $userName = $user->user_name ?? '';
+        
+        $map = [
+            'bmedina-admin' => 'Administrador Brandon Medina',
+            'nramirez-admin' => 'Administradora Nayely Ramirez',
+            'sjumbo-admin' => 'Administrador Sergio Jumbo',
+            'admin' => 'Super Administrator Administrador General',
+            'ctorres-marketing' => 'Especialista Camila Torres',
+            'vmorales-marketing' => 'Analista Valeria Morales',
+            'cmendoza-asesor_admisiones' => 'Asesor Carlos Mendoza',
+            'arivas-asesor_admisiones' => 'Asesora Ana Lucía Rivas',
+            'gsuing-director_maestria' => 'Directora Genoveva Suing',
+            'rfigueroa-director_maestria' => 'Director Roberth Figueroa',
+            'dbenitez-direccion_posgrado' => 'Coordinador David Benítez',
+            'scardenas-direccion_posgrado' => 'Gestora Sofía Cárdenas',
+        ];
+
+        if (isset($map[$userName])) {
+            return 'Admisiones Posgrado - ' . $map[$userName];
+        }
+
+        $fullName = trim(($user->first_name ?? '') . ' ' . ($user->last_name ?? ''));
+        if (empty($fullName)) {
+            $fullName = $userName;
+        }
+
+        $title = trim($user->title ?? '');
+        if (!empty($title)) {
+            return 'Admisiones Posgrado - ' . $title . ' ' . $fullName;
+        }
+
+        return 'Admisiones Posgrado - ' . $fullName;
+    }
+}

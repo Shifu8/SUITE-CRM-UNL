@@ -315,6 +315,10 @@ eoq;
 
             $fromName = $this->FromName;
 
+            if (function_exists('getFormattedFromName')) {
+                $fromName = getFormattedFromName($GLOBALS['current_user'] ?? null, $fromName);
+            }
+
             // checking if username already set for phpmailer and
             // using that as username instead fromname
             if ($this->FromName == self::$FromNameOrigin && !empty($this->Username)) {
