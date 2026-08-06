@@ -165,7 +165,11 @@ class LegacyMailer extends LegacyHandler
             return null;
         }
         $mail->From = $fromAddress ?? '';
-        $mail->FromName = $fromName ?? '';
+        if (function_exists('getFormattedFromName')) {
+            $mail->FromName = getFormattedFromName($GLOBALS['current_user'] ?? null, $fromName ?? '');
+        } else {
+            $mail->FromName = $fromName ?? '';
+        }
 
         if (!empty($message->getTextBody() ?? '')) {
             $mail->AltBody = $message->getTextBody() ?? '';
