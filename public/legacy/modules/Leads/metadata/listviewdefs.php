@@ -123,15 +123,21 @@ array(
   ),
   'STATUS' =>
   array(
-    'width' => '7%',
-    'label' => 'LBL_LIST_STATUS',
+    'width' => '12%',
+    'label' => 'LBL_STATUS',
+    'default' => true,
+  ),
+  'MAESTRIA_INTERESADA_C' =>
+  array(
+    'width' => '25%',
+    'label' => 'LBL_MAESTRIA_INTERESADA',
     'default' => true,
   ),
   'ACCOUNT_NAME' =>
   array(
     'width' => '15%',
     'label' => 'LBL_LIST_ACCOUNT_NAME',
-    'default' => true,
+    'default' => false,
     'related_fields' =>
     array(
       0 => 'account_id',
@@ -141,7 +147,7 @@ array(
   array(
     'width' => '15%',
     'label' => 'LBL_LIST_PHONE',
-    'default' => true,
+    'default' => false,
   ),
   'EMAIL1' =>
   array(

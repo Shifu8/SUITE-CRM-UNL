@@ -126,7 +126,7 @@ class ListViewFacade
             if (!file_exists($metadataFile)) {
                 throw new Exception("Metadata file '$metadataFile' not found for module '$module'.");
             }
-            require_once($metadataFile);
+            require($metadataFile);
         }
 
         $displayColumns = array();

@@ -38,3 +38,5 @@ $listViewDefs['Leads'] = array(
         'sortable'  => true,
     ),
 );
+
+$viewdefs['Leads']['ListView']['columns'] = $listViewDefs['Leads'];
