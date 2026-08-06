@@ -89,14 +89,39 @@ class EmailProcessProcessor extends LegacyHandler
         }
 
         if (empty($emailAttributes['outbound_email_id'])) {
-            $emailAttributes['outbound_email_id'] = 'faf45aff-b6d6-4ca3-9fdb-496986a29dad';
+            try {
+                if (!class_exists(\OutboundEmail::class) && file_exists(dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php')) {
+                    require_once dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php';
+                }
+                if (class_exists(\OutboundEmail::class)) {
+                    $oe = new \OutboundEmail();
+                    $sys = $oe->getSystemMailerSettings();
+                    if ($sys && !empty($sys->id)) {
+                        $emailAttributes['outbound_email_id'] = $sys->id;
+                    }
+                }
+            } catch (\Throwable $t) {}
         }
 
         /** @var \OutboundEmailAccounts $outboundEmail */
-        $outboundEmail = \BeanFactory::getBean('OutboundEmailAccounts', $emailAttributes['outbound_email_id']);
+        $outboundEmail = null;
+        if (!empty($emailAttributes['outbound_email_id'])) {
+            $outboundEmail = \BeanFactory::getBean('OutboundEmailAccounts', $emailAttributes['outbound_email_id']);
+        }
 
         if (empty($outboundEmail) || empty($outboundEmail->id)) {
-            $outboundEmail = \BeanFactory::getBean('OutboundEmailAccounts', 'faf45aff-b6d6-4ca3-9fdb-496986a29dad');
+            try {
+                if (!class_exists(\OutboundEmail::class) && file_exists(dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php')) {
+                    require_once dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php';
+                }
+                if (class_exists(\OutboundEmail::class)) {
+                    $oe = new \OutboundEmail();
+                    $sys = $oe->getSystemMailerSettings();
+                    if ($sys && !empty($sys->id)) {
+                        $outboundEmail = \BeanFactory::getBean('OutboundEmailAccounts', $sys->id);
+                    }
+                }
+            } catch (\Throwable $t) {}
         }
 
         if (empty($outboundEmail)) {

@@ -207,9 +207,24 @@ class CloseDraftAction extends LegacyHandler implements ProcessHandlerInterface
      */
     protected function isEmptyDescription(array $attributes): bool
     {
-        $outboundEmail = $this->recordProvider->getRecord('OutboundEmailAccounts', $attributes['outbound_email_id'] ?? '');
+        $signature = '';
+        $outboundEmailId = $attributes['outbound_email_id'] ?? '';
+        if (!empty($outboundEmailId)) {
+            try {
+                $outboundEmail = $this->recordProvider->getRecord('OutboundEmailAccounts', $outboundEmailId);
+                $signature = $outboundEmail->getAttributes()['signature'] ?? '';
+            } catch (\Throwable $t) {
+                if (class_exists(\BeanFactory::class)) {
+                    try {
+                        $bean = \BeanFactory::getBean('OutboundEmailAccounts', $outboundEmailId);
+                        if ($bean && !empty($bean->id)) {
+                            $signature = $bean->signature ?? '';
+                        }
+                    } catch (\Throwable $t2) {}
+                }
+            }
+        }
 
-        $signature = $outboundEmail->getAttributes()['signature'] ?? '';
         $trimmedSignature = $this->stripString($signature);
 
         $description = $attributes['description_html'] ?? '';

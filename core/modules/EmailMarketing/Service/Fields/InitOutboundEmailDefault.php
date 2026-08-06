@@ -101,39 +101,88 @@ class InitOutboundEmailDefault implements ProcessHandlerInterface
      */
     public function run(Process $process): void
     {
-
         $preferences = $this->userPreferenceService->getUserPreference('Emails')?->getItems() ?? [];
-
-        if ($preferences === []) {
-            $responseData = [
-                'value' => null,
-            ];
-
-            $process->setStatus('error');
-            $process->setMessages([]);
-            $process->setData($responseData);
-            return;
-        }
-
         $id = $preferences['defaultOEAccount'] ?? '';
 
-        if ($id === '') {
+        $record = null;
+        if (!empty($id)) {
+            try {
+                $record = $this->recordProvider->getRecord('OutboundEmailAccounts', $id);
+            } catch (\Throwable $e) {
+                $record = null;
+            }
+            if ($record === null && class_exists(\BeanFactory::class)) {
+                try {
+                    $bean = \BeanFactory::getBean('OutboundEmailAccounts', $id);
+                    if ($bean && !empty($bean->id)) {
+                        $record = $this->recordProvider->mapToRecord($bean);
+                    }
+                } catch (\Throwable $e) {}
+            }
+        }
+
+        if ($record === null) {
+            try {
+                if (!class_exists(\OutboundEmail::class) && file_exists(dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php')) {
+                    require_once dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php';
+                }
+                if (class_exists(\OutboundEmail::class)) {
+                    $oe = new \OutboundEmail();
+                    $system = $oe->getSystemMailerSettings();
+                    if ($system && !empty($system->id)) {
+                        try {
+                            $record = $this->recordProvider->getRecord('OutboundEmailAccounts', $system->id);
+                        } catch (\Throwable $e) {
+                            $record = null;
+                        }
+                        if ($record === null && class_exists(\BeanFactory::class)) {
+                            $bean = \BeanFactory::getBean('OutboundEmailAccounts', $system->id);
+                            if ($bean && !empty($bean->id)) {
+                                $record = $this->recordProvider->mapToRecord($bean);
+                            }
+                        }
+                    }
+                }
+            } catch (\Throwable $e) {
+                $record = null;
+            }
+        }
+
+        if ($record === null && class_exists(\BeanFactory::class)) {
+            try {
+                $bean = \BeanFactory::newBean('OutboundEmailAccounts');
+                $list = $bean->get_full_list('', "outbound_email.type != 'inbound'");
+                if (!empty($list[0])) {
+                    $record = $this->recordProvider->mapToRecord($list[0]);
+                }
+            } catch (\Throwable $e) {}
+        }
+
+        if ($record === null) {
             $responseData = [
                 'value' => ''
             ];
 
             $process->setStatus('error');
-            $process->setMessages(['LBL_DEFAULT_OUTBOUND_NOT_SET']);
+            $process->setMessages(['LBL_DEFAULT_OUTBOUND_NOT_CONFIGURED']);
             $process->setData($responseData);
             return;
         }
 
-        $record = $this->recordProvider->getRecord('OutboundEmailAccounts', $id);
-
         $attributes = $record->getAttributes() ?? [];
 
-        if (!isset($attributes['from_name'])) {
-            $attributes['from_addr'] = $attributes['smtp_from_name'] . ' ' . $attributes['smtp_from_addr'];
+        if (empty($attributes['from_addr'])) {
+            $smtpFromName = $attributes['smtp_from_name'] ?? ($attributes['from_name'] ?? '');
+            $smtpFromAddr = $attributes['smtp_from_addr'] ?? '';
+            if (!empty($smtpFromAddr)) {
+                $attributes['from_addr'] = !empty($smtpFromName) ? "$smtpFromName <$smtpFromAddr>" : $smtpFromAddr;
+            } else {
+                $attributes['from_addr'] = $attributes['name'] ?? '';
+            }
+        }
+
+        if (empty($attributes['from_name'])) {
+            $attributes['from_name'] = $attributes['smtp_from_name'] ?? ($attributes['name'] ?? '');
         }
 
         if ((empty($attributes['from_addr']) || $attributes['from_addr'] === ' ') && empty($attributes['from_name'])) {

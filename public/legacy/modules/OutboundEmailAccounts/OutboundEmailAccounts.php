@@ -197,7 +197,12 @@ class OutboundEmailAccounts extends OutboundEmailAccounts_sugar
             $this->auth_type = 'basic';
         }
 
-        $this->mail_smtppass = $this->mail_smtppass ? blowfishDecode(blowfishGetKey('OutBoundEmail'), $this->mail_smtppass) : null;
+        if ($this->mail_smtppass) {
+            $decoded = blowfishDecode(blowfishGetKey('OutBoundEmail'), $this->mail_smtppass);
+            if (!empty($decoded) && !str_contains($decoded, "\0") && ctype_print(trim($decoded))) {
+                $this->mail_smtppass = $decoded;
+            }
+        }
         return $results;
     }
 

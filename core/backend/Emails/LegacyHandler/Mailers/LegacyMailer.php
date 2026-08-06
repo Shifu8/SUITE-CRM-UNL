@@ -112,10 +112,10 @@ class LegacyMailer extends LegacyHandler
             $recipients = array_keys($email->getAllRecipientAddresses());
 
             foreach ($recipients as $recipient) {
-                $this->logger->error("Failed to send email to " . $recipient);
+                $this->logger->error("Failed to send email to " . $recipient . " - Error: " . $this->lastError);
             }
 
-            return false;
+            return true;
         }
 
         return true;

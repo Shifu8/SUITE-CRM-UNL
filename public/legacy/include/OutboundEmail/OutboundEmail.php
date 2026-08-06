@@ -452,7 +452,12 @@ class OutboundEmail
         if (!empty($a)) {
             foreach ($a as $k => $v) {
                 if ($k == 'mail_smtppass' && !empty($v)) {
-                    $this->$k = blowfishDecode(blowfishGetKey('OutBoundEmail'), $v);
+                    $decoded = blowfishDecode(blowfishGetKey('OutBoundEmail'), $v);
+                    if (!empty($decoded) && !str_contains($decoded, "\0") && ctype_print(trim($decoded))) {
+                        $this->$k = $decoded;
+                    } else {
+                        $this->$k = $v;
+                    }
                 } else {
                     $this->$k = $v;
                 } // else

@@ -265,21 +265,75 @@ class OpenDraftAction implements ProcessHandlerInterface
     protected function getOutboundEmailRecord(string $id, string $fromAddr): array
     {
         if (empty($id)) {
-            $id = 'faf45aff-b6d6-4ca3-9fdb-496986a29dad';
+            try {
+                if (!class_exists(\OutboundEmail::class) && file_exists(dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php')) {
+                    require_once dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php';
+                }
+                if (class_exists(\OutboundEmail::class)) {
+                    $oe = new \OutboundEmail();
+                    $system = $oe->getSystemMailerSettings();
+                    if ($system && !empty($system->id)) {
+                        $id = $system->id;
+                    }
+                }
+            } catch (\Throwable $t) {}
         }
-        try {
-            $record = $this->getRecord('OutboundEmailAccounts', $id);
-            $attributes = $record->getAttributes();
-            if (empty($fromAddr)) {
-                $fromAddr = $attributes['smtp_from_addr'] ?? 'brandon.medina@unl.edu.ec';
+        if (!empty($id)) {
+            try {
+                $record = $this->getRecord('OutboundEmailAccounts', $id);
+                $attributes = $record->getAttributes();
+                if (empty($fromAddr)) {
+                    $smtpFromName = $attributes['smtp_from_name'] ?? ($attributes['from_name'] ?? '');
+                    $smtpFromAddr = $attributes['smtp_from_addr'] ?? '';
+                    $fromAddr = !empty($smtpFromAddr) ? (!empty($smtpFromName) ? "$smtpFromName <$smtpFromAddr>" : $smtpFromAddr) : ($attributes['from_addr'] ?? 'brandon.medina@unl.edu.ec');
+                }
+                $attributes['from_addr'] = $fromAddr;
+                $record->setAttributes($attributes);
+                return $record->toArray();
+            } catch (\Throwable $t) {
+                if (class_exists(\BeanFactory::class)) {
+                    try {
+                        $bean = \BeanFactory::getBean('OutboundEmailAccounts', $id);
+                        if ($bean && !empty($bean->id)) {
+                            $record = $this->recordProvider->mapToRecord($bean);
+                            $attributes = $record->getAttributes();
+                            if (empty($fromAddr)) {
+                                $smtpFromName = $attributes['smtp_from_name'] ?? ($attributes['from_name'] ?? '');
+                                $smtpFromAddr = $attributes['smtp_from_addr'] ?? '';
+                                $fromAddr = !empty($smtpFromAddr) ? (!empty($smtpFromName) ? "$smtpFromName <$smtpFromAddr>" : $smtpFromAddr) : ($attributes['from_addr'] ?? 'brandon.medina@unl.edu.ec');
+                            }
+                            $attributes['from_addr'] = $fromAddr;
+                            $record->setAttributes($attributes);
+                            return $record->toArray();
+                        }
+                    } catch (\Throwable $t2) {}
+                }
             }
-            $attributes['from_addr'] = $fromAddr;
-            $record->setAttributes($attributes);
-            return $record->toArray();
-        } catch (\Throwable $t) {
-            $record = $this->getRecord('OutboundEmailAccounts', 'faf45aff-b6d6-4ca3-9fdb-496986a29dad');
-            return $record->toArray();
         }
+
+        try {
+            if (!class_exists(\OutboundEmail::class) && file_exists(dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php')) {
+                require_once dirname(__DIR__, 4) . '/public/legacy/include/OutboundEmail/OutboundEmail.php';
+            }
+            $oe = new \OutboundEmail();
+            $system = $oe->getSystemMailerSettings();
+            if ($system && !empty($system->id)) {
+                try {
+                    $record = $this->getRecord('OutboundEmailAccounts', $system->id);
+                    return $record->toArray();
+                } catch (\Throwable $t) {
+                    if (class_exists(\BeanFactory::class)) {
+                        $bean = \BeanFactory::getBean('OutboundEmailAccounts', $system->id);
+                        if ($bean && !empty($bean->id)) {
+                            $record = $this->recordProvider->mapToRecord($bean);
+                            return $record->toArray();
+                        }
+                    }
+                }
+            }
+        } catch (\Throwable $t) {}
+
+        return [];
     }
 
 
