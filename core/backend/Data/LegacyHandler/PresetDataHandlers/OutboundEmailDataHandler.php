@@ -107,7 +107,8 @@ class OutboundEmailDataHandler extends BaseListDataHandler implements ListDataHa
     {
         $table = \BeanFactory::newBean('OutboundEmailAccounts')->getTableName();
 
-        $query = "($table.deleted = 0)";
+        $userId = $currentUser ? $currentUser->id : '';
+        $query = "($table.deleted = 0 AND (($table.type IS NULL) OR ($table.type != 'user') OR ($table.type = 'user' AND $table.user_id = '$userId')))";
 
         if (empty($where)) {
             return $query;

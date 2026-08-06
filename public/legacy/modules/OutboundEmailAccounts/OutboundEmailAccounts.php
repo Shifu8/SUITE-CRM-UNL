@@ -212,12 +212,9 @@ class OutboundEmailAccounts extends OutboundEmailAccounts_sugar
     public function getUserOutboundAccounts(): array {
         global $current_user, $db;
 
-        $where = '';
-        if (is_admin($current_user)) {
-            $currentUserId = $db->quote($current_user->id);
-            $tableName = $db->quote($this->table_name);
-            $where = "(($tableName.type IS NULL) OR ($tableName.type != 'user' ) OR ($tableName.type = 'user' AND $tableName.user_id = '$currentUserId'))";
-        }
+        $currentUserId = $db->quote($current_user->id ?? '');
+        $tableName = $db->quote($this->table_name);
+        $where = "(($tableName.type IS NULL) OR ($tableName.type != 'user' ) OR ($tableName.type = 'user' AND $tableName.user_id = '$currentUserId'))";
 
         return $this->get_list('', $where)['list'] ?? [];
     }
@@ -309,12 +306,6 @@ class OutboundEmailAccounts extends OutboundEmailAccounts_sugar
             $currentUserId = $db->quote($current_user->id);
 
             $showGroupRecords = "($tableName.type IS NULL) OR ($tableName.type != 'user' ) OR ";
-
-            $hasActionAclsDefined = has_group_action_acls_defined('OutboundEmailAccounts', 'list');
-
-            if($hasActionAclsDefined === false) {
-                $showGroupRecords = '';
-            }
 
             $ret_array['where'] = $ret_array['where'] . " AND ( $showGroupRecords ($tableName.type = 'user' AND $tableName.user_id = '$currentUserId') )";
         }
