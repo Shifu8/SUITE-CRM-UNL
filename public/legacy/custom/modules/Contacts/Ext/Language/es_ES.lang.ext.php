@@ -1,5 +1,5 @@
-<?php 
- //WARNING: The contents of this file are auto-generated
+<?php
+// WARNING: The contents of this file are auto-generated
 
 
 /**
@@ -36,4 +36,3 @@ $mod_strings['LBL_MAESTRIA_INTERESADA'] = 'Nombre de Maestría';
 $mod_strings['LBL_CEDULA']             = 'Cédula';
 $mod_strings['LBL_CICLO_CONVOCATORIA'] = 'Ciclo / Convocatoria';
 
-?>
