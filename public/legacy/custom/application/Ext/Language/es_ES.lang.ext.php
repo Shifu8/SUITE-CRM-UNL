@@ -100,16 +100,19 @@ $app_list_strings['canal_procedencia_list'] = array (
 );
 
 
-// Estados personalizados para Leads - Flujo de Asesores de Admisiones
-$app_list_strings['lead_status_dom']['New'] = 'Nuevo';
-$app_list_strings['lead_status_dom']['Assigned'] = 'Asignado';
-$app_list_strings['lead_status_dom']['In Process'] = 'En Seguimiento';
-$app_list_strings['lead_status_dom']['En seguimiento'] = 'En Seguimiento';
-$app_list_strings['lead_status_dom']['Converted'] = 'Convertido';
-$app_list_strings['lead_status_dom']['Recycled'] = 'Reciclado';
-$app_list_strings['lead_status_dom']['Dead'] = 'Descartado';
-$app_list_strings['lead_status_dom']['Listo para Convertir'] = 'Listo para Convertir';
-$app_list_strings['lead_status_dom']['Inscrito y/o Matriculado'] = 'Inscrito y/o Matriculado';
+$app_list_strings['lead_status_dom'] = array(
+    'New' => 'Nuevo',
+    'Assigned' => 'Asignado',
+    'In Process' => 'En Seguimiento',
+    'En seguimiento' => 'En Seguimiento',
+    'Contacted' => 'Contactado',
+    'Registered' => 'Registrado',
+    'Converted' => 'Convertido',
+    'Listo para Convertir' => 'Listo para Convertir',
+    'Inscrito y/o Matriculado' => 'Inscrito y/o Matriculado',
+    'Recycled' => 'Reciclado',
+    'Dead' => 'Descartado',
+);
 
 // created: 2026-07-27 16:09:09
 $app_list_strings['calendar_source_types']['caldav_basic'] = 'CalDAV';

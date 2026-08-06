@@ -194,13 +194,14 @@ export class ModuleNavigation {
      * @returns {string} label
      */
     public getActionLabel(module: string, item: ModuleAction, languages: LanguageStrings, labelKey = ''): string {
-        if (!languages || !languages.modStrings || !item || !module) {
+        if (!item || !module) {
             return '';
         }
 
-        let key = labelKey;
-        if (!key) {
-            key = item.labelKey;
+        let key = labelKey || item.labelKey || item.actionLabelKey || '';
+
+        if (!languages || !languages.modStrings) {
+            return key || item.name || '';
         }
 
         let label = languages.modStrings[module] && languages.modStrings[module][key];
@@ -217,7 +218,13 @@ export class ModuleNavigation {
             label = languages.modStrings.administration && languages.modStrings.administration[key];
         }
 
-        return label || '';
+        if (!label && item.actionLabelKey) {
+            const altKey = item.actionLabelKey;
+            label = (languages.modStrings[module] && languages.modStrings[module][altKey])
+                || (languages.appStrings && languages.appStrings[altKey]);
+        }
+
+        return label || key || item.name || '';
     }
 
     /**

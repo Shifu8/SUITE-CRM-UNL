@@ -1,7 +1,4 @@
 <?php
-// WARNING: The contents of this file are auto-generated
-
-
 $app_list_strings['lead_status_dom'] = array(
     'New' => 'Nuevo',
     'Assigned' => 'Asignado',
@@ -15,9 +12,3 @@ $app_list_strings['lead_status_dom'] = array(
     'Recycled' => 'Reciclado',
     'Dead' => 'Descartado',
 );
-
-
-// created: 2026-07-23 06:12:38
-$app_list_strings['calendar_source_types']['caldav_basic'] = 'CalDAV';
-$app_list_strings['calendar_source_types']['google'] = 'Google Calendar';
-

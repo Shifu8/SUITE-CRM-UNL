@@ -358,6 +358,13 @@ class NavbarHandler extends LegacyHandler implements NavigationProviderInterface
                 $routeInfo = $this->routeConverter->parseUri($url) ?? [];
             }
 
+            if (!empty($label)) {
+                $translated = translate($label, $legacyModule);
+                if (!empty($translated) && is_string($translated)) {
+                    $label = $translated;
+                }
+            }
+
             $subMenuItem = [
                 'name' => $action,
                 'labelKey' => $this->mapEntry($frontendModule, $action, 'labelKey', $label),
@@ -366,7 +373,7 @@ class NavbarHandler extends LegacyHandler implements NavigationProviderInterface
                 'processParams' => $process['params'] ?? [],
                 'params' => $routeInfo['params'] ?? [],
                 'icon' => $this->mapEntry($frontendModule, $action, 'icon', ''),
-                'actionLabelKey' => $this->mapEntry($frontendModule, $action, 'actionLabelKey', ''),
+                'actionLabelKey' => $this->mapEntry($frontendModule, $action, 'actionLabelKey', $label),
                 'quickAction' => $quickAction ?? false,
                 'type' => $type ?? ''
             ];

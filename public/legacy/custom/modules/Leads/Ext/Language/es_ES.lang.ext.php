@@ -17,6 +17,13 @@ $mod_strings['LBL_ASSIGNED_TO_NAME']    = 'Asignado a (Director de Maestría)';
 $mod_strings['LBL_ASSIGNED_USER_NAME']  = 'Asignado a (Director de Maestría)';
 
 
+$mod_strings['LBL_STATUS'] = 'Estado del Aspirante';
+$mod_strings['LBL_LEAD_STATUS'] = 'Estado del Aspirante';
+$mod_strings['LBL_MAESTRIA_INTERESADA'] = 'Maestría de Interés';
+$mod_strings['LBL_LIST_STATUS'] = 'Estado del Aspirante';
+$mod_strings['LBL_LIST_MAESTRIA_INTERESADA'] = 'Maestría de Interés';
+
+
 /**
  * Etiquetas de menú personalizadas para Leads
  */
@@ -33,4 +40,10 @@ $mod_strings['LBL_CONTADOR_INSISTENCIAS'] = 'Número de Insistencias';
 $mod_strings['LBL_EDITVIEW_PANEL1'] = 'Información de Admisiones UNL';
 $mod_strings['LBL_EDITVIEW_PANEL2'] = 'undefined 2';
 $mod_strings['LBL_EDITVIEW_PANEL3'] = 'Información de Admisiones UNL';
+
+$mod_strings['LBL_STATUS'] = 'Estado del Aspirante';
+$mod_strings['LBL_LEAD_STATUS'] = 'Estado del Aspirante';
+$mod_strings['LBL_LIST_STATUS'] = 'Estado del Aspirante';
+$mod_strings['LBL_MAESTRIA_INTERESADA'] = 'Maestría de Interés';
+$mod_strings['LBL_LIST_MAESTRIA_INTERESADA'] = 'Maestría de Interés';
 

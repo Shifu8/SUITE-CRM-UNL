@@ -362,9 +362,24 @@ a.close-navmenu:hover {
   fill: $white;
 }
 
+.navbar-nav .dropdown-menu .nav-item a.action-link,
+.navbar-nav .dropdown-menu .nav-item a.action-link span,
+.dropdown-menu .nav-item a.action-link,
+.dropdown-menu .nav-item a.action-link span,
+.action-link-text {
+  color: $white !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+  margin-left: 0.5rem !important;
+}
+
 .navbar-nav .dropdown-menu .nav-item:hover a.action-link:hover,
-.navbar-nav .dropdown-menu .nav-item:hover a.action-link {
-  color: $white;
+.navbar-nav .dropdown-menu .nav-item:hover a.action-link:hover span,
+.navbar-nav .dropdown-menu .nav-item:hover a.action-link,
+.navbar-nav .dropdown-menu .nav-item:hover a.action-link span {
+  color: $white !important;
+  background-color: $dull-orange;
 }
 
 .nav-link-grouped:hover.hover-enabled,

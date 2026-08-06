@@ -134,6 +134,11 @@ class ModStringsHandler extends LegacyHandler
 
             if (!empty($moduleStrings)) {
                 $moduleStrings = $this->removeEndingColon($moduleStrings);
+                foreach ($moduleStrings as $k => $v) {
+                    if (is_string($v) && !empty($v) && !isset($moduleStrings[$v])) {
+                        $moduleStrings[$v] = $v;
+                    }
+                }
             }
             $allModStringsArray[$frontendName] = $moduleStrings;
         }
