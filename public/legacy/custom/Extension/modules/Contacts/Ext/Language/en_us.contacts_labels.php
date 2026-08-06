@@ -1,13 +1,5 @@
 <?php
-// WARNING: The contents of this file are auto-generated
-
-
 $mod_strings['LBL_LIST_EMAIL_ADDRESS'] = 'Email Address';
 $mod_strings['LBL_EMAIL_ADDRESS']      = 'Email Address';
 $mod_strings['LBL_PHONE_MOBILE']        = 'Mobile';
 $mod_strings['LBL_MOBILE_PHONE']       = 'Mobile';
-
-
-// created: 2026-08-05 06:06:52
-$mod_strings['LBL_EDITVIEW_PANEL1'] = 'Social Networks';
-

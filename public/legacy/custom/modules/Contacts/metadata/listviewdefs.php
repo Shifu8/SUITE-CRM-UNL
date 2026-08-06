@@ -32,7 +32,7 @@ $listViewDefs['Contacts'] = array(
     ),
     'PHONE_MOBILE' => array(
         'width'   => '10%',
-        'label'   => 'LBL_PHONE_MOBILE',
+        'label'   => 'LBL_MOBILE_PHONE',
         'default' => true,
     ),
     'PRIMARY_ADDRESS_CITY' => array(
@@ -101,3 +101,5 @@ $listViewDefs['Contacts'] = array(
         'default' => false,
     ),
 );
+
+$viewdefs['Contacts']['ListView']['columns'] = $listViewDefs['Contacts'];
