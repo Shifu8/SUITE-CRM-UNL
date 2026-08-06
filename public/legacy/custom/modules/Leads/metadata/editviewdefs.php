@@ -120,10 +120,8 @@ array (
         array (
           0 => 
           array (
-            'name' => 'account_name',
-            'type' => 'varchar',
-            'validateDependency' => false,
-            'customCode' => '<input name="account_name" id="EditView_account_name" {if ($fields.converted.value == 1)}disabled="true"{/if} size="30" maxlength="255" type="text" value="{$fields.account_name.value}">',
+            'name' => 'maestria_interesada_c',
+            'label' => 'LBL_MAESTRIA_INTERESADA',
           ),
           1 => 'website',
         ),
