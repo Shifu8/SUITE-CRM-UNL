@@ -100,6 +100,27 @@ $app_list_strings['canal_procedencia_list'] = array (
 );
 
 
+/**
+ * Dropdown list: estado_aspirante_list (Español)
+ */
+$app_list_strings['estado_aspirante_list'] = array(
+    ''                         => '',
+    'Nuevo'                    => 'Nuevo',
+    'Contactado'               => 'Contactado',
+    'En seguimiento'            => 'En seguimiento',
+    'In Process'                => 'En seguimiento',
+    'Inscrito'                  => 'Inscrito',
+    'Converted'                 => 'Inscrito',
+    'Admitido'                  => 'Admitido',
+    'Matriculado'               => 'Matriculado',
+    'Inscrito y/o Matriculado' => 'Inscrito y/o Matriculado',
+    'Descartado'                => 'Descartado',
+    'Dead'                      => 'Descartado',
+    'Reciclado'                 => 'Reciclado',
+    'Recycled'                  => 'Reciclado',
+);
+
+
 $app_list_strings['lead_status_dom'] = array(
     'New' => 'Nuevo',
     'Assigned' => 'Asignado',
@@ -113,6 +134,17 @@ $app_list_strings['lead_status_dom'] = array(
     'Recycled' => 'Reciclado',
     'Dead' => 'Descartado',
 );
+
+$app_list_strings['maestria_interesada_list'] = array(
+    ''                                                  => '',
+    'Maestría en Ingeniería de Software'                => 'Maestría en Ingeniería de Software',
+    'Maestría en Big Data & Data Science'               => 'Maestría en Big Data & Data Science',
+    'Maestría en Inteligencia Artificial'               => 'Maestría en Inteligencia Artificial',
+    'Maestría en Gerencia de Salud'                     => 'Maestría en Gerencia de Salud',
+    'Maestría en Gestión de Tecnologías de Información' => 'Maestría en Gestión de Tecnologías de Información',
+    'Maestría en Seguridad de la Información'          => 'Maestría en Seguridad de la Información',
+);
+
 
 // created: 2026-07-27 16:09:09
 $app_list_strings['calendar_source_types']['caldav_basic'] = 'CalDAV';
